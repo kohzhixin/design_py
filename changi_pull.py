@@ -27,13 +27,13 @@ def add_to_db_2h():
     driver_dep.close()
     print("pulled departure info")
 
-    info_list_dep = info_dep.split("\n")[4:-1]
+    info_list_dep = info_dep.split("\n")[4:]
 
     for i in info_list_dep:
         if "Codeshare" in i or i == "Check-in Row/Door" or i == "Boarding Gate":
             info_list_dep.remove(i)
 
-    print(info_list_dep)
+    #print(info_list_dep)
     nested_list_dep = []
 
     while len(info_list_dep) > 2:
@@ -63,7 +63,7 @@ def delete_collection(coll_ref, batch_size):
     docs = coll_ref.limit(batch_size).get()
     deleted = 0
     for doc in docs:
-        print(u'Deleting doc {} => {}'.format(doc.id, doc.to_dict()))
+#        print(u'Deleting doc {} => {}'.format(doc.id, doc.to_dict()))
         doc.reference.delete()
         deleted = deleted + 1
 
@@ -73,12 +73,13 @@ def delete_collection(coll_ref, batch_size):
 
 try:
     while True:
-        try: 
-            if len([i for i in deps.get()]) != 0:
-                delete_collection(deps, len([i for i in deps.get()]))
-            add_to_db_2h()
-            time.sleep(60 * 5) # update database every 5 minutes
-        except Exception:
-            print("catch exception")
+        #try: 
+        if len([i for i in deps.get()]) != 0:
+            delete_collection(deps, len([i for i in deps.get()]))
+        add_to_db_2h()
+        print("time:", time.ctime())
+        time.sleep(60 * 5) # update database every 5 minutes
+        #except Exception:
+         #   print("catch exception")
 except KeyboardInterrupt:
     print("end")
