@@ -1,0 +1,150 @@
+#: kivy 1.0.9
+
+<sm>
+    MainScreen:
+    MenuScreen:
+
+<MainScreen>
+    name: "main"
+    Image:
+		id: cutepic
+        source: "cuteface.png"
+
+<MenuScreen>
+    name: "menu"
+    BoxLayout:
+		canvas:
+			Color: 
+				rgba: (1, 1, 1, 1)
+			Rectangle:
+				size: self.size
+				pos: self.pos
+		id: "box"
+		orientation: "vertical"
+        ActionBar:
+			background_normal: "shadow.jpg"
+            ActionView:
+                id: av
+                ActionPrevious:
+					app_icon: ""
+					with_previous: False
+                ActionToggleButton:
+                    id: menu_toggle
+					group: "toggles"
+                    text: "Menu"
+					state: "down"
+					on_press: root.switch_page(0)
+                ActionToggleButton:
+                    id: info_toggle
+					group: "toggles"
+                    text: "Flight Info"
+					on_press: root.switch_page(1)
+				ActionToggleButton:
+                    id: barcode_toggle
+					group: "toggles"
+                    text: "Scan Flight Ticket"
+					on_press: root.switch_page(2)
+				ActionToggleButton:
+					id: directory_toggle
+					group: "toggles"
+					text: "Directory"
+					on_press: root.switch_page(3)
+				ActionToggleButton:
+					id: map_toggle
+					group: "toggles"
+					text: "Map"
+					on_press: root.switch_page(4)
+		PageLayout:
+			border: 0
+			id: pages
+			BoxLayout:
+				id: food
+				orientation:"vertical"
+				padding: 10
+				GridLayout:
+					id: menu
+					cols: 3
+					ImageButton:
+						source: "lays.jpg"
+					ImageButton:
+						source: "calbee.png"
+					ImageButton:
+						source: "bread.png"
+					ImageButton:
+						source: "milo.png"
+					ImageButton:
+						source: "soyamilk.png"
+					ImageButton:
+						source: "coke.png"
+					ImageButton:
+						source: "doritos.png"
+					ImageButton:
+						source: "sprite.png"
+					ImageButton:
+						source: "noodles.png"
+				Button:
+					id: confirmbutton
+					size_hint: (1, 0.2)
+					text: "Confirm and pay"
+			DataBox:
+				id: info
+				rows: 11
+				cols: 9
+				canvas:
+					Color: 
+						rgba: (1, 1, 1, 1)
+					Rectangle:
+						size: self.size
+						pos: self.pos
+				cols_minimum: {0: 100, 1: 70, 2: 90, 3: 150, 4: 80, 5: 100, 6: 100, 7: 100, 8: 100}
+			BoxLayout:
+				id: barcode
+				orientation: "vertical"
+				padding: 20
+				canvas:
+					Color: 
+						rgba: (1, 1, 1, 1)
+					Rectangle:
+						size: self.size
+						pos: self.pos
+				BoxLayout:
+					orientation: "horizontal"
+					TextInput:
+						id: custominput
+						hint_text: "Scan the barcode on your flight ticket"
+						multiline: False
+					BoxLayout:
+						size_hint: (0.3, 1)
+						orientation: "vertical"
+						Button:
+							text: "Enter"
+							on_press: root.read_barcode()
+						Button:
+							text: "Clear"
+							on_press: root.clear_barcode()
+
+				Label:
+					id: dynamictext
+					text: "Your flight details"
+					size_hint: (1, 0.7)
+					color: (0, 0, 0, 1)
+			BoxLayout:
+				id: directory
+				canvas:
+					Color: 
+						rgba: (1, 1, 1, 1)
+					Rectangle:
+						size: self.size
+						pos: self.pos
+				Label:
+					text: "placeholder directory"
+			BoxLayout:
+				id: map
+				canvas:
+					Color: 
+						rgba: (1, 1, 1, 1)
+					Rectangle:
+						size: self.size
+						pos: self.pos
+				Image:
+					source: "map.jpg"
